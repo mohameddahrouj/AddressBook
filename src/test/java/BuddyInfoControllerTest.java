@@ -8,6 +8,9 @@ import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 import java.net.URL;
@@ -38,5 +41,11 @@ public class BuddyInfoControllerTest {
     public void createBuddy() throws Exception
     {
         String url = this.baseURL + "?firstName=" + firstName + "&lastName=" + lastName + "&address=" + address + "&phone=" + phone;
+    }
+
+    @Test
+    public void getBuddy() throws Exception
+    {
+        String url = this.baseURL+"/id/" + "1";
     }
 }
