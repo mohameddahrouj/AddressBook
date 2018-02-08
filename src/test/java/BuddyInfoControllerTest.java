@@ -1,51 +1,72 @@
+package sysc4806.Controller;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import lab.Application;
-import lab.model.BuddyInfo;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-
-import java.net.URL;
+import org.springframework.test.web.servlet.MockMvc;
+import lab.repository.BuddyInfoRepository;
+import lab.model.BuddyInfo;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+@ContextConfiguration(classes = Application.class)
 public class BuddyInfoControllerTest {
 
-    @LocalServerPort
-    private int port;
+    @Autowired
+    private MockMvc mockMvc;
 
     @Autowired
-    private TestRestTemplate template;
+    private BuddyInfoRepository buddyInfoRepository;
 
-    private String baseURL;
+    private String baseURL = "/buddy";
 
     private static String firstName = "Mohamed";
     private static String lastName = "Dahrouj";
-    private static String address = "Carleton";
     private static String phone = "613-123-4564";
+    private static String address = "Carleton";
 
-    @Before
-    public void setUp() throws Exception {
-        this.baseURL = "http://localhost:" + port + "/buddy";
-    }
 
     @Test
-    public void createBuddy() throws Exception
+    public void createBuddyTest() throws Exception
     {
         String url = this.baseURL + "?firstName=" + firstName + "&lastName=" + lastName + "&address=" + address + "&phone=" + phone;
+//        this.mockMvc.perform(post(url).
+//                contentType(MediaType.APPLICATION_JSON)).
+//                andExpect(jsonPath("firstName", is(firstName))).
+//                andExpect(jsonPath("lastName", is(lastName)));
     }
 
     @Test
-    public void getBuddy() throws Exception
+    public void getBuddyTest() throws Exception
     {
-        String url = this.baseURL+"/id/" + "1";
+        BuddyInfo buddyInfo = new BuddyInfo(firstName, lastName, phone,address);
+        BuddyInfo createdBuddy = buddyInfoRepository.save(buddyInfo);
+        String url = this.baseURL + "/" + createdBuddy.getId();
+        this.mockMvc.perform(get(url).
+                contentType(MediaType.APPLICATION_JSON)).
+                andExpect(status().isOk()).
+                andExpect(jsonPath("firstName", is(createdBuddy.getFirstName()))).
+                andExpect(jsonPath("lastName", is(createdBuddy.getLastName()))).
+                andExpect(jsonPath("id", is((int)createdBuddy.getId())));
     }
+
 }
