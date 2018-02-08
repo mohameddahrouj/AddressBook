@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/addressBook")
+@RequestMapping("/book")
 public class AddressBookController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class AddressBookController {
         return addressBookRepository.findAll();
     }
 
-    @RequestMapping(value = "/{addressBookId}/buddies/{buddyId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{bookId}/buddies/{buddyId}", method = RequestMethod.PUT)
     public ResponseEntity<AddressBook> addBuddy(@PathVariable("addressBookId") Long addressBookId, @PathVariable("buddyId") Long buddyId)
     {
         AddressBook addressBook = addressBookRepository.findOne(addressBookId);
@@ -49,7 +49,7 @@ public class AddressBookController {
         return ResponseEntity.badRequest().build();
     }
 
-    @RequestMapping(value = "/{addressBookId}/buddies/{buddyId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{bookId}/buddies/{buddyId}", method = RequestMethod.DELETE)
     public ResponseEntity<AddressBook> deleteBuddy(@PathVariable("addressBookId") Long addressBookId, @PathVariable("buddyId") Long buddyId)
     {
         AddressBook addressBook = addressBookRepository.findOne(addressBookId);
