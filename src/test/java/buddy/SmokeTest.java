@@ -3,6 +3,7 @@ package buddy;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import lab.Application;
+import lab.controller.AddressBookController;
 import lab.controller.BuddyInfoController;
 import lab.model.BuddyInfo;
 import org.junit.Test;
@@ -16,10 +17,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class SmokeTest {
 
     @Autowired
-    private BuddyInfoController controller;
+    private BuddyInfoController buddyController;
+
+    @Autowired
+    private AddressBookController bookController;
 
     @Test
-    public void contextLoads() throws Exception {
-        assertThat(controller).isNotNull();
+    public void bookControllerLoads() throws Exception {
+        assertThat(bookController).isNotNull();
+    }
+    @Test
+    public void buddyControllerLoads() throws Exception {
+        assertThat(buddyController).isNotNull();
     }
 }

@@ -23,8 +23,8 @@ public class HttpRequestTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void greetingShouldReturnDefaultMessage() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
-                String.class)).contains("Hello World");
+    public void initialAddressBookShouldBeEmpty() throws Exception {
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/book",
+                String.class)).isEqualTo("[]");
     }
 }
