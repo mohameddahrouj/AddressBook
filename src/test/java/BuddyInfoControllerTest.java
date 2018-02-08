@@ -1,3 +1,5 @@
+import lab.Application;
+import lab.model.BuddyInfo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.net.URL;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
 public class BuddyInfoControllerTest {
 
     @LocalServerPort
@@ -29,7 +31,7 @@ public class BuddyInfoControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.baseURL = "http://localhost:" + port + "/buddyInfo";
+        this.baseURL = "http://localhost:" + port + "/buddy";
     }
 
     @Test
