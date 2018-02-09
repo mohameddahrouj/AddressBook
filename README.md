@@ -8,4 +8,4 @@ SYSC 4806 Continous Lab Work - Winter 2018
 | 2     | Persisting using object relational mapping, JPA                   |
 | 3     | Dependency injection using Spring                                 |
 | 4     | Spring MVC and getting started with REST                          |
-| 5     | Continuos Integration using TravisCI and deploying to Heroku      |
+| 5     | Continuos integration using TravisCI and deploying to Heroku      |
