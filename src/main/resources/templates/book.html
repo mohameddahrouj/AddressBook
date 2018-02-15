@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome to your address book</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<h1>Add Buddy:</h1>
+<form id="addbudd" action="#" th:action="@{/thebook}" th:object="${buddyinfo}" method="post">
+    <span><input placeholder="First Name" type="text" th:field="*{firstName}" /></span>
+    <span><input placeholder="Last Name" type="text" th:field="*{lastName}" /></span>
+    <span><input placeholder="Phone Number" type="text" th:field="*{phoneNumber}" /></span>
+    <span><input placeholder="Address" type="text" th:field="*{address}" /></span>
+    <input id="submitbutton" type="submit" value="Add" /> <input type="reset" value="Reset" />
+</form>
+
+<h1>Buddies List:</h1>
+
+<div th:if="${book.getSize() >=1}" >
+    <table th:object="${book}" id="userTable" border="1">
+        <tr th:each="bud :${book.book}">
+            <td  th:text="${bud.firstName}"></td>   
+            <td  th:text="${bud.lastName}"></td>
+            <td  th:text="${bud.phoneNumber}"></td>
+            <td  th:text="${bud.address}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

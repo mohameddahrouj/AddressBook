@@ -27,6 +27,11 @@ public class AddressBook {
         book = new ArrayList<BuddyInfo>();
     }
 
+    public AddressBook(long id){
+        this.id = id;
+        book = new ArrayList<BuddyInfo>();
+    }
+
     public void addBuddy(BuddyInfo buddy){
         book.add(buddy);
     }

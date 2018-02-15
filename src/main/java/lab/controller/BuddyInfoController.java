@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
-@Controller
 @RestController
 @RequestMapping("/buddy")
 public class BuddyInfoController {
